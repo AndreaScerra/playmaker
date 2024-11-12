@@ -30,8 +30,8 @@ document.getElementById('generate-pdf').addEventListener('click', async () => {
     const spaceBetweenY = 20;
     
     // Posizione e dimensione del logo in alto a destra
-    const logoUrl = 'https://github.com/AndreaScerra/playmaker/blob/main/png-to-pdf/img/logo.png'; 
-    const logoWidth = 13;
+    const logoUrl = 'https://raw.githubusercontent.com/AndreaScerra/playmaker/refs/heads/main/png-to-pdf/img/logopdf.png?token=GHSAT0AAAAAAC2L3TLXCSD3X52C5MDC237MZZTT42A'; 
+    const logoWidth = 15.34;
     const logoHeight = 15.34;
     const logoX = pageWidth - logoWidth - 12;
     const logoY = 6;
