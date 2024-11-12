@@ -1,0 +1,300 @@
+/* Stile globale */
+* {
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #333;
+    color: #fff;
+}
+
+header {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+header p {
+    margin: 5px 0;
+    font-size: 20px;
+    align-items: center;
+    text-align: center;
+}
+
+
+
+
+.container {
+    display: flex;
+    max-width: 1200px; /* Aumentato da 1000px */
+    width: 100%;
+    height: 720px; /* Aumentato da 600px */
+    border-radius: 14px; /* Aumentato da 12px */
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6); /* Aumentato */
+    overflow: hidden;
+    background-color: #2a2a2a;
+}
+
+/* Zona Drag-and-Drop */
+.drag-and-drop-area {
+    flex: 1;
+    padding: 24px; /* Aumentato da 20px */
+    background-color: #1a1a1a;
+    border: 2px solid #fff;
+    border-radius: 14px; /* Aumentato da 12px */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+
+.drag-and-drop-area p {
+    color: #888;
+    font-size: 19px; /* Aumentato da 16px */
+    margin-bottom: 18px; /* Aumentato da 15px */
+}
+
+/* Stile del pulsante di input file */
+.file-input-label {
+    display: inline-block;
+    padding: 14px 24px; /* Aumentato */
+    font-size: 19px; /* Aumentato */
+    color: #fff;
+    background-color: #444;
+    border-radius: 10px; /* Aumentato da 8px */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 18px; /* Aumentato da 15px */
+    text-align: center;
+}
+
+.file-input-label:hover {
+    background-color: #00a824;
+}
+
+.preview-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px; /* Aumentato da 12px */
+    max-height: 90%; /* Aumentato da 75% */
+    overflow-y: auto;
+    width: 100%;
+    padding: 12px; /* Aumentato da 10px */
+}
+
+.preview-image {
+    width: calc(33.33% - 10px); /* Aumentato margine per le immagini */
+    height: auto;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 10px; /* Aumentato da 8px */
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.preview-image:hover {
+    transform: scale(1.05);
+    border-color: #00a824;
+}
+
+/* Controlli */
+.controls-container {
+    flex: 2;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Cambiato da center a flex-start per allineare in alto */
+    background-color: #2a2a2a;
+}
+
+header h1 {
+    font-size: 29px; /* Aumentato da 24px */
+    color: #fff;
+}
+
+
+.material-button {
+    margin-top: 24px; /* Aumentato da 20px */
+    padding: 16px; /* Aumentato da 12px */
+    font-size: 19px; /* Aumentato da 16px */
+    color: #fff;
+    background-color: #444;
+    border: none;
+    border-radius: 10px; /* Aumentato da 8px */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-items: center;
+    justify-content: center;
+    display: inline-flex;
+
+
+
+}
+
+
+
+#generate-pdf:hover {
+    background-color: #00aaff;
+}
+
+#reset-button:hover {
+    background-color: #f44336;
+}
+
+#gopl{
+    margin-top: 24px; 
+    padding: 16px; 
+    font-size: 19px; 
+    color: #fff;
+    background-color: #137e10;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-items: center;
+    justify-content: center;
+    display: inline-flex;
+
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-image {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px; 
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+}
+
+.close-button {
+    position: absolute;
+    top: 18px; 
+    right: 24px; 
+    font-size: 36px; 
+    color: #fff;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-button:hover {
+    color: #f44336;
+}
+
+
+.preview-container::-webkit-scrollbar {
+    width: 10px; 
+}
+
+.preview-container::-webkit-scrollbar-thumb {
+    background: #3a3a3a;
+    border-radius: 5px;
+}
+
+.preview-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.delete-button {
+    position: absolute;
+    top: 6px; 
+    right: 6px; 
+    font-size: 24px; 
+    color: #f44336;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    transition: color 0.3s ease;
+}
+
+.img-container {
+    position: relative;
+    display: inline-block;
+    margin: 12px; 
+}
+
+.preview-image {
+    width: 120px; 
+    height: auto;
+    border: 2px solid #444;
+    border-radius: 8px; /* Aumentato da 5px */
+    transition: transform 0.3s;
+}
+
+.preview-image:hover {
+    transform: scale(1.05);
+}
+
+.delete-button {
+    position: absolute;
+    top: 6px; 
+    right: 6px;
+    font-size: 24px; 
+    color: #fff;
+    background-color: #444; 
+    border: none;
+    border-radius: 50%;
+    width: 30px; 
+    height: 30px; 
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.3s;
+}
+
+
+.img-container:hover .delete-button {
+    display: flex;
+}
+
+.delete-button:hover {
+    background-color: #f44336;
+}
+
+
+.file-input-label input[type="file"] {
+    display: none; 
+}
+
+.file-input-label {
+    display: inline-block;
+    padding: 12px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #444;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.file-input-label:hover {
+    background-color: #00a824;
+}

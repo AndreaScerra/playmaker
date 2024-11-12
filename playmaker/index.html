@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playmaker</title>
+    <link rel="shortcut icon" href="./img/logo.jpg" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="field-container">
+            <canvas id="playbook-canvas"></canvas>
+        </div>
+        <div class="controls-container">
+            <header>
+                <h1>Playmaker 5v5</h1>
+                <img src="img/logo.png" width=100 alt="Playmaker Logo" class="logo-image"/>
+                <h2>Guide</h2>
+                <p><span class="material-icons">open_with</span> To move players, hold Shift while slowly moving with the left mouse button;</p>
+                <p><span class="material-icons">select_all</span> To select, hold Shift and click with the left mouse button;</p>
+                <p><span class="material-icons">gesture</span> To draw a dashed line (motion), hold Ctrl while drawing;</p>
+                <p><span class="material-icons">brush</span> Motion does not work in "freehand" mode; geometric mode is recommended.</p>
+            </header>
+            <div class="controls">
+                <div class="left-column">
+                    <button id="toggle-end-marker" class="material-button"><span class="material-icons">change_circle</span> Change Terminal</button>
+                    <button id="save-play" class="material-button"><span class="material-icons">save</span> Save</button>
+                    <button id="toggle-mode" class="material-button">
+                        <span class="material-icons">swap_horiz</span> 
+                        <span id="toggle-text">Mode: Geometric</span>
+                    </button>
+                </div>
+                <div class="right-column">
+                    <button id="delete-route" class="material-button"><span class="material-icons">delete</span> Delete Route</button>
+                    <button id="clear-canvas" class="material-button"><span class="material-icons">cancel</span> Reset</button>
+                    <button id="goptp" class="material-button"><span class="material-icons">move_up</span> Create PDF</button>
+                </div>
+            </div>
+            <div id="confirmation-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-button material-icons">close</span>
+                    <p>How do you want to save the play?</p>
+                    <button id="save-black-white" class="modal-button"><span class="material-icons">palette</span> Black and White</button>
+                    <button id="save-color" class="modal-button"><span class="material-icons">palette</span> In Color</button>
+                </div>
+            </div>
+        </div>
+        
+    <script src="script.js"></script>
+</body>
+</html>
