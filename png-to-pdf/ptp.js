@@ -23,18 +23,20 @@ document.getElementById('generate-pdf').addEventListener('click', async () => {
 
     // Configurazione margini e dimensioni
     const imgWidth = 80;
-    const imgHeight = 60;
-    const sideMargin = 20; 
-    const topMargin = 25; 
+    const imgHeight = 64;
+    const sideMargin = 17.5; 
+    const topMargin = 33.5; 
     const spaceBetweenX = 15;
     const spaceBetweenY = 20;
     
+    
     // Posizione e dimensione del logo in alto a destra
     const logoUrl = 'https://raw.githubusercontent.com/AndreaScerra/playmaker/refs/heads/main/png-to-pdf/img/logopdf.png?token=GHSAT0AAAAAAC2L3TLXCSD3X52C5MDC237MZZTT42A'; 
-    const logoWidth = 15.34;
+    const logoWidth = 13;
     const logoHeight = 15.34;
-    const logoX = pageWidth - logoWidth - 12;
-    const logoY = 6;
+    const logoX = pageWidth - logoWidth - 9.7;
+    const logoY = 9;
+
 
     // Calcola le posizioni Y per le righe in base ai margini
     const rowPositions = [
