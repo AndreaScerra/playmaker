@@ -157,11 +157,6 @@ window.addEventListener('keyup', (e) => {
     }
 });
 
-document.getElementById('toggle-mode').addEventListener('click', () => {
-    geometricMode = !geometricMode;
-    document.getElementById('toggle-text').textContent = `Mode: ${geometricMode ? 'Geometric' : 'Free Hand'}`;
-    draw();
-});
 
 
 
