@@ -172,11 +172,13 @@ document.getElementById('save-play').addEventListener('click', () => {
 });
 
 document.getElementById('save-black-white').addEventListener('click', () => {
+    highlightedPlayer = null; // Rimuove l'evidenziazione
     savePlay(true); // Salva in bianco e nero
     closeModal();
 });
 
 document.getElementById('save-color').addEventListener('click', () => {
+    highlightedPlayer = null; // Rimuove l'evidenziazione
     savePlay(false); // Salva a colori
     closeModal();
 });
