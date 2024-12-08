@@ -356,16 +356,18 @@ function highlightPlayer(player) {
 
 document.getElementById('clear-canvas').addEventListener('click', () => {
     players = [
-        { x: 200, y: 640, color: '#FF8000', id: 1 },
-        { x: 650, y: 640, color: '#AD1EAD', id: 2 },
-        { x: 500, y: 640, color: '#696161', id: 3 },
-        { x: 800, y: 640, color: '#14C19C', id: 4 },
-        { x: 500, y: 750, color: '#B50000', id: 5 }
+        { x: 200, y: 640, color: '#FF8000', id: 1, endMarker: 'arrow' },
+        { x: 650, y: 640, color: '#AD1EAD', id: 2, endMarker: 'arrow' },
+        { x: 650, y: 640, color: '#AD1EAD', id: 2, endMarker: 'arrow' },
+        { x: 500, y: 640, color: '#696161', id: 3, endMarker: 'arrow' },
+        { x: 800, y: 640, color: '#14C19C', id: 4, endMarker: 'arrow' },
+        { x: 500, y: 750, color: '#B50000', id: 5, endMarker: 'arrow' }
     ];
     routes = []; // Ripristina le rotte per ogni giocatore
     highlightedPlayer = null;
     draw();
 });
+
 
 
 document.getElementById('delete-route').addEventListener('click', () => {
