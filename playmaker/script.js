@@ -356,17 +356,26 @@ function highlightPlayer(player) {
 
 document.getElementById('clear-canvas').addEventListener('click', () => {
     players = [
-    { x: 200, y: 640, initialX: 200, initialY: 640, color: '#FF8000', id: 1, endMarker: 'arrow' }, //estrema sinistra
-    { x: 650, y: 640, initialX: 650, initialY: 640, color: '#AD1EAD', id: 2, endMarker: 'arrow' }, //frazione sinistra  
+    { x: 200, y: 640, initialX: 200, initialY: 640, color: '#FF8000', id: 1, endMarker: 'arrow' }, //WR sinistra
+    { x: 650, y: 640, initialX: 650, initialY: 640, color: '#AD1EAD', id: 2, endMarker: 'arrow' }, //WR2 destra
     { x: 500, y: 640, initialX: 500, initialY: 640, color: '#696161', id: 3, endMarker: 'arrow' }, //centro 
-    { x: 800, y: 640, initialX: 800, initialY: 640, color: '#14C19C', id: 4, endMarker: 'arrow' }, //destra
+    { x: 800, y: 640, initialX: 800, initialY: 640, color: '#14C19C', id: 4, endMarker: 'arrow' }, //WR destra
     { x: 500, y: 750, initialX: 500, initialY: 750, color: '#B50000', id: 5, endMarker: 'arrow' }  //QB
     ];
     routes = []; // Ripristina le rotte per ogni giocatore
     highlightedPlayer = null;
+    isDrawing = false;
+        currentRoute = null;
+        mouseX = 0;
+        mouseY = 0;
+        draggedPlayer = null;
+        geometricMode = true;
+        shiftPressed = false;
+        highlightedPlayer = null;
+        ctrlPressed = false;
+
     draw();
 });
-
 
 
 document.getElementById('delete-route').addEventListener('click', () => {
