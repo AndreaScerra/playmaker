@@ -20,10 +20,10 @@ const moveArea = {
 
 
 let players = [
-    { x: 200, y: 640, initialX: 200, initialY: 640, color: '#FF8000', id: 1, endMarker: 'arrow' }, //estrema sinistra
-    { x: 650, y: 640, initialX: 650, initialY: 640, color: '#AD1EAD', id: 2, endMarker: 'arrow' }, //frazione sinistra  
+    { x: 200, y: 640, initialX: 200, initialY: 640, color: '#FF8000', id: 1, endMarker: 'arrow' }, //WR sinistra
+    { x: 650, y: 640, initialX: 650, initialY: 640, color: '#AD1EAD', id: 2, endMarker: 'arrow' }, //WR2 destra
     { x: 500, y: 640, initialX: 500, initialY: 640, color: '#696161', id: 3, endMarker: 'arrow' }, //centro 
-    { x: 800, y: 640, initialX: 800, initialY: 640, color: '#14C19C', id: 4, endMarker: 'arrow' }, //destra
+    { x: 800, y: 640, initialX: 800, initialY: 640, color: '#14C19C', id: 4, endMarker: 'arrow' }, //WR destra
     { x: 500, y: 750, initialX: 500, initialY: 750, color: '#B50000', id: 5, endMarker: 'arrow' }  //QB
 ];
 
@@ -36,7 +36,7 @@ let mouseY = 0;
 let draggedPlayer = null;
 let geometricMode = true;
 let shiftPressed = false;
-let highlightedPlayer = null;
+let highlightedPlayer = false;
 let ctrlPressed = false;
 
 
@@ -161,6 +161,8 @@ window.addEventListener('keyup', (e) => {
 
 
 document.getElementById('save-play').addEventListener('click', () => {
+    highlightedPlayer = null; // Rimuove l'evidenziazione
+
     // Apri la modale di conferma
     const modal = document.getElementById('confirmation-modal');
     modal.style.display = 'block';
@@ -168,12 +170,15 @@ document.getElementById('save-play').addEventListener('click', () => {
 
 document.getElementById('save-black-white').addEventListener('click', () => {
     highlightedPlayer = null; // Rimuove l'evidenziazione
+
+    
+
     savePlay(true); // Salva in bianco e nero
     closeModal();
 });
 
 document.getElementById('save-color').addEventListener('click', () => {
-    highlightedPlayer = null; // Rimuove l'evidenziazione
+
     savePlay(false); // Salva a colori
     closeModal();
 });
@@ -193,9 +198,11 @@ function closeModal() {
 }
 
 function savePlay(saveInBlackAndWhite) {
+
     drawField(saveInBlackAndWhite);
     drawRoutes(saveInBlackAndWhite);
     drawPlayers(saveInBlackAndWhite);
+
 
     const index = getCurrentIndex(); 
     const dataURL = canvas.toDataURL('image/png');
@@ -254,10 +261,10 @@ function drawRoutes(saveMode = false) {
             ctx.moveTo(segments[0].x, segments[0].y);
 
             for (let i = 1; i < segments.length; i++) {
-                
                 ctx.strokeStyle = saveMode ? '#000000' : route.color;
                 ctx.lineWidth = 4;
 
+                // Controlla lo stato `isDashed` per ogni segmento
                 if (segments[i].isDashed) {
                     ctx.setLineDash([10, 15]); // Segmento tratteggiato
                 } else {
@@ -267,23 +274,26 @@ function drawRoutes(saveMode = false) {
                 ctx.lineTo(segments[i].x, segments[i].y);
                 ctx.stroke();
 
-                ctx.setLineDash([]);
+                ctx.setLineDash([]); // Resetta i trattini per sicurezza
                 ctx.beginPath();
                 ctx.moveTo(segments[i].x, segments[i].y);
             }
-
             const player = players.find(p => p.id === route.playerId);
-            if (player) {
-                const color = saveMode ? '#000000' : route.color;
-                if (player.endMarker === 'arrow') {
-                    drawArrow(segments[segments.length - 2], segments[segments.length - 1], color);
-                } else {
-                    drawDot(segments[segments.length - 1], color);
-                }
-            }
+if (player) {
+    const color = saveMode ? '#000000' : route.color;
+    if (player.endMarker === 'arrow') {
+        drawArrow(segments[segments.length - 2], segments[segments.length - 1], color);
+    } else {
+        drawDot(segments[segments.length - 1], color);
+    }
+}
+
+
+            
         }
     });
 }
+
 
 
 
@@ -374,28 +384,101 @@ document.getElementById('clear-canvas').addEventListener('click', () => {
         highlightedPlayer = null;
         ctrlPressed = false;
 
+
+        const fileInput = document.getElementById('upload-json');
+        fileInput.value = '';
+
     draw();
 });
+
+window.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.key === 'z') {
+        if (highlightedPlayer) {
+            const route = routes.find(route => route.playerId === highlightedPlayer.id);
+            if (route && route.segments.length > 1) {
+                // Rimuovi l'ultimo segmento della traiettoria
+                route.segments.pop();
+                draw(); // Ridisegna il canvas per aggiornare la traiettoria
+            } else {
+                console.warn("Nessun segmento da eliminare o traiettoria troppo corta!");
+            }
+        } else {
+            console.warn("Seleziona un giocatore per eliminare l'ultimo segmento della traiettoria.");
+        }
+    }
+});
+
+
+document.getElementById('undo-segment').addEventListener('click', () => {
+    if (highlightedPlayer) {
+        // Trova la rotta del giocatore evidenziato
+        const playerRoute = routes.find(route => route.playerId === highlightedPlayer.id);
+        if (playerRoute && playerRoute.segments.length > 1) {
+            // Rimuove l'ultimo segmento
+            playerRoute.segments.pop();
+            // Se rimane solo il punto iniziale, elimina la rotta
+            if (playerRoute.segments.length === 1) {
+                routes = routes.filter(route => route.playerId !== highlightedPlayer.id);
+            }
+            draw(); // Ridisegna il canvas
+        }
+    }
+});
+
 
 
 document.getElementById('delete-route').addEventListener('click', () => {
     if (highlightedPlayer) {
         routes = routes.filter(route => route.playerId !== highlightedPlayer.id);
         currentRoute = null;
-        isDashed = null;
-        //routes = [];
         isDrawing = false;
-        currentRoute = null;
-        mouseX = 0;
-        mouseY = 0;
-        draggedPlayer = null;
-        geometricMode = true;
-        shiftPressed = false;
-        highlightedPlayer = null;
-        ctrlPressed = false;
         draw();
     }
+
+    const fileInput = document.getElementById('upload-json');
+    fileInput.value = '';
 });
+
+//
+document.getElementById("upload-json-btn").addEventListener("click", function() {
+    document.getElementById("upload-json").click();
+});
+
+
+
+document.getElementById('upload-json').addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        try {
+            const data = JSON.parse(e.target.result);
+            if (data.players && data.routes) {
+                players = data.players;
+                routes = data.routes;
+                draw();
+            } else {
+                alert("Formato JSON non valido!");
+            }
+        } catch (error) {
+            alert("Errore nel parsing del JSON!");
+            console.error(error);
+        }
+    };
+    reader.readAsText(file);
+});
+
+document.getElementById('download-json').addEventListener('click', () => {
+    const playbookData = JSON.stringify({ players, routes }, null, 2);
+    const blob = new Blob([playbookData], { type: "application/json" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "play.json";
+    link.click();
+});
+
+
 
 
 
