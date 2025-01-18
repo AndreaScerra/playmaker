@@ -85,6 +85,8 @@ header p {
 }
 
 
+
+
 #goptp {
     background-color: #8b2acc;
     color: #fff;
@@ -97,6 +99,27 @@ header p {
     align-items: center;
     justify-content: center;
     transition: background-color 0.3s ease;
+}
+
+.json-upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 15px; /* Aggiunge spazio sotto il pulsante */
+    gap: 8px; /* Spazio tra il pulsante e il nome del file */
+}
+
+#upload-json-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+}
+
+#file-name {
+    font-size: 14px;
+    color: #bbb;
+    text-align: center;
 }
 
 /*hover */
@@ -119,6 +142,12 @@ header p {
 #toggle-end-marker:hover {
     background-color: #00a824; 
 }
+
+#download-json:hover{
+    background-color: #0049a8; 
+
+}
+
 
 .material-button .material-icons {
     margin-right: 8px;
