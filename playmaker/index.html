@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flag Football Playmaker 5v5</title>
+    <title>Playmaker</title>
     <link rel="shortcut icon" href="./img/logo.jpg" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="styles.css">
@@ -18,33 +18,41 @@
                 <h1>Playmaker 5v5</h1>
                 <img src="img/logo.png" width=100 alt="Playmaker Logo" class="logo-image"/>
                 <h2>Guide</h2>
-                <p><span class="material-icons">open_with</span> To move players, hold Shift while slowly moving with the left mouse button;</p>
+                <p><span class="material-icons">open_with</span> To move players, hold Shift while slowly dragging with the left mouse button;</p>
                 <p><span class="material-icons">select_all</span> To select, hold Shift and click with the left mouse button;</p>
-                <p><span class="material-icons">gesture</span> To draw a dashed line (motion), hold Ctrl while drawing.</p>
+                <p><span class="material-icons">gesture</span> To draw a dashed line (motion), draw while holding the Ctrl key;</p>
+                <p><span class="material-icons">download</span> You can download plays as images or JSON files for later editing.</p>
             </header>
             <div class="controls">
                 <div class="left-column">
                     <button id="toggle-end-marker" class="material-button"><span class="material-icons">change_circle</span> Change Terminal</button>
                     <button id="save-play" class="material-button"><span class="material-icons">save</span> Save</button>
+                    <div class="json-upload-container">
+                        <button id="upload-json-btn" class="material-button">
+                            <span class="material-icons">upload_file</span> Upload JSON
+                        </button>
+                        <input type="file" id="upload-json" accept=".json" style="display: none;">
+                        <span id="file-name"></span>
+                    </div>
                     <button id="goptp" class="material-button"><span class="material-icons">move_up</span> Create PDF</button>
+                </div>
 
-                    
-                </div>
                 <div class="right-column">
-                    <button id="delete-route" class="material-button"><span class="material-icons">delete</span> Delete Route</button>
+                    <button id="delete-route" class="material-button"><span class="material-icons">delete</span> Delete Path</button>
                     <button id="clear-canvas" class="material-button"><span class="material-icons">cancel</span> Reset</button>
+                    <button id="undo-segment" class="material-button"><span class="material-icons">undo</span> Remove Last Segment</button>
                 </div>
-            </div>
+            
             <div id="confirmation-modal" class="modal">
                 <div class="modal-content">
                     <span class="close-button material-icons">close</span>
                     <p>How do you want to save the play?</p>
-                    <button id="save-black-white" class="modal-button"><span class="material-icons">palette</span> Black and White</button>
-                    <button id="save-color" class="modal-button"><span class="material-icons">palette</span> In Color</button>
+                    <button id="save-black-white" class="modal-button"><span class="material-icons">palette</span>Black & White</button>
+                    <button id="save-color" class="modal-button"><span class="material-icons">palette</span>Color</button>
+                    <button id="download-json" class="modal-button"><span class="material-icons">download</span> Download JSON</button>
                 </div>
             </div>
         </div>
-        
     <script src="script.js"></script>
 </body>
 </html>
