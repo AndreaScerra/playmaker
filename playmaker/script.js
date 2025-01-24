@@ -56,15 +56,24 @@ canvas.addEventListener('mousedown', (e) => {
     } else {
         if (highlightedPlayer) {
             isDrawing = true;
-            if (!currentRoute || currentRoute.playerId !== highlightedPlayer.id) {
-                currentRoute = { playerId: highlightedPlayer.id, color: highlightedPlayer.color, segments: [{ x: highlightedPlayer.x, y: highlightedPlayer.y }] };
-                routes.push(currentRoute);
+            let existingRoute = routes.find(route => route.playerId === highlightedPlayer.id);
+
+            if (!existingRoute) {
+                existingRoute = { 
+                    playerId: highlightedPlayer.id, 
+                    color: highlightedPlayer.color, 
+                    segments: [{ x: highlightedPlayer.x, y: highlightedPlayer.y }] 
+                };
+                routes.push(existingRoute);
             }
+
+            currentRoute = existingRoute;
             currentRoute.segments.push({ x: mouseX, y: mouseY });
         }
     }
     draw();
 });
+
 
 document.getElementById('toggle-end-marker').addEventListener('click', () => {
     if (highlightedPlayer) {
@@ -459,10 +468,10 @@ document.getElementById('upload-json').addEventListener('change', (event) => {
                 routes = data.routes;
                 draw();
             } else {
-                alert("Formato JSON non valido!");
+                alert("Invalid JSON format!");
             }
         } catch (error) {
-            alert("Errore nel parsing del JSON!");
+            alert("JSON parsing error!");
             console.error(error);
         }
     };
