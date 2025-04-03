@@ -1,5 +1,5 @@
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Arial', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -52,21 +52,21 @@ header p {
 }
 
 
-.left-column, .right-column {
+.left-column, .middle-column, .right-column {
     flex: 4; 
     display: flex;
     flex-direction: column; 
 }
 
 
-.left-column button, .right-column button {
+.left-column button,  .middle-column button, .right-column button {
     margin-bottom: 10px; 
     width: 200px; /* Imposta una larghezza fissa */
 
 }
 
 
-.left-column button:last-child, .right-column button:last-child {
+.left-column button:last-child, .middle-column button:last-child .right-column button:last-child {
     margin-bottom: 0; 
 }
 
@@ -122,30 +122,60 @@ header p {
     text-align: center;
 }
 
+/* Stile per il campo commenti nella modale */
+.modal-content textarea {
+    font-family: 'Arial', sans-serif;
+    width: 80%;
+    height: 60px;
+    padding: 12px;
+    margin: 15px 0;
+    border: 1px solid #555;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #444;
+    color: #fff;
+    text-align: center;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
 /*hover */
-.material-button:hover {
-    background-color: #555;
-}
+/* Effetti hover per tutti i pulsanti */
 
-#clear-canvas:hover {
-    background-color: #772320; /* Colore rosso */
-}
-
-#delete-route:hover {
-    background-color: #d9534f;
+/* Pulsanti della prima colonna */
+#toggle-end-marker:hover {
+    background-color: #00a824; /* Verde */
 }
 
 #save-play:hover {
-    background-color: #00aaff; /* Colore azzurro per l'hover */
+    background-color: #00aaff; /* Azzurro */
 }
 
-#toggle-end-marker:hover {
-    background-color: #00a824; 
+#add-football-icon:hover {
+    background-color: #ddb618; /* Giallo */
 }
 
-#download-json:hover{
-    background-color: #0049a8; 
+/* Pulsanti della seconda colonna */
+#delete-route:hover {
+    background-color: #d9534f; /* Rosso */
+}
 
+#clear-canvas:hover {
+    background-color: #772320; /* Rosso scuro */
+}
+
+#undo-segment:hover {
+    background-color: #dd8006; /* Arancione */
+}
+
+/* Pulsanti della terza colonna */
+#upload-json-btn:hover {
+    background-color: #0049a8; /* Blu scuro */
+}
+
+#goptp:hover {
+    background-color: #8b2acc; /* Viola */
 }
 
 
@@ -217,6 +247,8 @@ header p {
     margin: 10px;
 }
 
+
+
 .modal-button:hover {
     background-color: #555; /* Stesso effetto hover di .material-button */
 }
@@ -242,6 +274,27 @@ header p {
 #save-black-white:hover, #save-color:hover {
     background-color: #8a8a8a;
 }
+
+
+/* Stile aggiornato per il campo di input nella modale */
+.modal-content input[type="text"] {
+    width: 80%;
+    padding: 12px;
+    margin: 15px 0;
+    border: 1px solid #555;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #444;
+    color: #fff;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+
+
+
+
 
 
 /* Fine modale */
