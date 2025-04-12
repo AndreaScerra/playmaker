@@ -57,6 +57,9 @@ let highlightedPlayer = false;  // Giocatore evidenziato (selezionato)
 let ctrlPressed = false;        // Stato del tasto Control
 const proximityThreshold = 100; 
 
+// Variabili per il supporto touch
+let touchStartTime = 0;
+let touchTimeout = null;
 
 // ====================================================
 // 4. FUNZIONI DI SUPPORTO
@@ -205,6 +208,84 @@ canvas.addEventListener('mouseup', () => {
     }
 });
 
+// Gestione del doppio tap per selezionare un giocatore
+canvas.addEventListener('touchstart', (e) => {
+    const touch = e.touches[0];
+    mouseX = touch.clientX - canvas.offsetLeft;
+    mouseY = touch.clientY - canvas.offsetTop;
+
+    const tappedPlayer = players.find(player => isMouseOverPlayer(player, mouseX, mouseY));
+
+    if (tappedPlayer) {
+        const currentTime = new Date().getTime();
+        if (currentTime - touchStartTime < 300) {
+            // Doppio tap rilevato
+            highlightPlayer(tappedPlayer);
+            clearTimeout(touchTimeout); // Cancella il timeout del singolo tap
+        } else {
+            touchStartTime = currentTime;
+        }
+    }
+});
+
+// Gestione della pressione prolungata per spostare un giocatore
+canvas.addEventListener('touchstart', (e) => {
+    const touch = e.touches[0];
+    mouseX = touch.clientX - canvas.offsetLeft;
+    mouseY = touch.clientY - canvas.offsetTop;
+
+    draggedPlayer = players.find(player => isMouseOverPlayer(player, mouseX, mouseY));
+
+    if (draggedPlayer) {
+        touchTimeout = setTimeout(() => {
+            highlightPlayer(draggedPlayer); // Evidenzia il giocatore
+        }, 500); // Pressione prolungata di 500ms
+    }
+});
+
+canvas.addEventListener('touchmove', (e) => {
+    if (draggedPlayer) {
+        const touch = e.touches[0];
+        const newMouseX = touch.clientX - canvas.offsetLeft;
+        const newMouseY = touch.clientY - canvas.offsetTop;
+
+        const dx = newMouseX - mouseX;
+        const dy = newMouseY - mouseY;
+
+        const newX = draggedPlayer.x + dx;
+        const newY = draggedPlayer.y + dy;
+
+        if (newX >= moveArea.minX && newX <= moveArea.maxX &&
+            newY >= moveArea.minY && newY <= moveArea.maxY) {
+            draggedPlayer.x = newX;
+            draggedPlayer.y = newY;
+
+            routes.forEach(route => {
+                if (route.playerId === draggedPlayer.id) {
+                    route.segments.forEach(segment => {
+                        segment.x += dx;
+                        segment.y += dy;
+                    });
+
+                    if (route.footballIcon) {
+                        route.footballIcon.x += dx;
+                        route.footballIcon.y += dy;
+                    }
+                }
+            });
+            draw();
+        }
+
+        mouseX = newMouseX;
+        mouseY = newMouseY;
+    }
+});
+
+canvas.addEventListener('touchend', () => {
+    clearTimeout(touchTimeout);
+    draggedPlayer = null;
+});
+
 // ====================================================
 // 6. GESTIONE DEGLI EVENTI TASTIERA
 // ====================================================
@@ -286,7 +367,7 @@ const commentBox = {
 function drawCommentBox(comments) {
     if (comments !== "") {
         // Imposta il font per i commenti
-        ctx.font = "40px Arial"; // Aggiornato a 40px
+        ctx.font = "50px Arial"; // Aggiornato a 40px
         ctx.fillStyle = "#000000";
         ctx.textAlign = "left";
 
@@ -428,7 +509,7 @@ function drawPlayers(saveMode = false) {
     players.forEach(player => {
         ctx.beginPath();
         // Aumenta il raggio del giocatore (da 15 a 20 ad esempio)
-        const radius = 20;
+        const radius = 25;
         ctx.arc(player.x, player.y, radius, 0, Math.PI * 2, true);
         ctx.fillStyle = player.color;
         ctx.fill();
@@ -436,16 +517,16 @@ function drawPlayers(saveMode = false) {
         // Disegna il bordo (con evidenza se il giocatore è selezionato)
         if (player === highlightedPlayer) {
             ctx.strokeStyle = saveMode ? player.color : '#FFFF00';
-            ctx.lineWidth = 4;
+            ctx.lineWidth = 5;
         } else {
             ctx.strokeStyle = saveMode ? player.color : '#ffffff';
-            ctx.lineWidth = 2;
+            ctx.lineWidth = 3;
         }
         ctx.stroke();
         ctx.closePath();
 
         // Disegna la lettera bianca al centro del giocatore
-        ctx.font = "  25px Arial";
+        ctx.font = "  30px Arial";
         ctx.fillStyle = "#FFFFFF";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
@@ -469,7 +550,7 @@ function drawRoutes(saveMode = false) {
                 const next = segments[i + 1];
 
                 ctx.strokeStyle = saveMode ? '#000000' : route.color;
-                ctx.lineWidth = 6;
+                ctx.lineWidth = 8;
 
                 if (next && areSegmentsClose(prev, curr, next)) {
                     // Calcola il punto di controllo per la curva smussata
@@ -512,7 +593,7 @@ function drawRoutes(saveMode = false) {
 function drawDot(end, color) {
     ctx.fillStyle = color;
     ctx.beginPath();
-    ctx.arc(end.x, end.y, 4, 0, Math.PI * 2);
+    ctx.arc(end.x, end.y, 8, 0, Math.PI * 2);
     ctx.fill();
     ctx.closePath();
 }
@@ -520,7 +601,7 @@ function drawDot(end, color) {
 // Disegna una freccia come simbolo di fine traiettoria
 function drawArrow(start, end, color) {
     // Usa un valore di lineWidth coerente con i tracciati più spessi, ad esempio 6
-    const lineWidth = 6;
+    const lineWidth = 8;
     ctx.lineWidth = lineWidth;
     ctx.strokeStyle = color;
     ctx.lineJoin = "round";
@@ -612,8 +693,8 @@ document.getElementById('add-football-icon').addEventListener('click', () => {
                 const angle = Math.atan2(dy, dx);
 
                 // Posiziona la palla dietro la punta e parallela al tratto
-                const offset = 30; // Distanza dalla punta
-                const lateralOffset = -15; // Spostamento laterale (affianca la traiettoria)
+                const offset = 37; // Distanza dalla punta
+                const lateralOffset = -17; // Spostamento laterale (affianca la traiettoria)
 
                 // Calcola la posizione della palla con offset laterale
                 const footballX = lastSegment.x - Math.cos(angle) * offset + Math.sin(angle) * lateralOffset;
@@ -673,24 +754,28 @@ window.addEventListener('keydown', (e) => {
     if (e.ctrlKey && e.key === 'z') {
         if (highlightedPlayer) {
             const route = routes.find(route => route.playerId === highlightedPlayer.id);
-            if (route && route.segments.length > 1) {
-                // Rimuove l'ultimo segmento della traiettoria
-                route.segments.pop();
+            if (route) {
+                if (route.segments.length > 1) {
+                    // Rimuove l'ultimo segmento della traiettoria
+                    route.segments.pop();
 
-                // Se rimane solo il punto iniziale, elimina la rotta e la palla
-                if (route.segments.length === 1) {
-                    routes = routes.filter(r => r.playerId !== highlightedPlayer.id);
+                    // Se rimane solo il punto iniziale, elimina la rotta
+                    if (route.segments.length === 1) {
+                        routes = routes.filter(r => r.playerId !== highlightedPlayer.id);
+                    }
+
+                    // Rimuovi la palla se presente
+                    route.footballIcon = null;
+
+                    draw();
+                } else {
+                    console.warn("La traiettoria è troppo corta per essere annullata!");
                 }
-
-                // Rimuovi la palla se presente
-                route.footballIcon = null;
-
-                draw();
             } else {
-                console.warn("Nessun segmento da eliminare o traiettoria troppo corta!");
+                console.warn("Nessuna traiettoria trovata per il giocatore selezionato!");
             }
         } else {
-            console.warn("Seleziona un giocatore per eliminare l'ultimo segmento della traiettoria.");
+            console.warn("Seleziona un giocatore per annullare l'ultimo segmento della traiettoria.");
         }
     }
 });
