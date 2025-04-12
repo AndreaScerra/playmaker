@@ -1,39 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flag Football Playmaker 5v5</title>
+    <title>png ->pdf</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="./ptp.css">
+     <link rel="stylesheet" href="./ptp.css">
 </head>
 <body>
     <div class="container">
         <div class="drag-and-drop-area" id="drag-and-drop-area">
             <label for="file-input" class="file-input-label">
-                Choose File
+                Scegli File
                 <input type="file" id="file-input" multiple accept=".png" onchange="handleFileSelection()">
             </label>
             <div id="preview-container" class="preview-container"></div>
         </div>
         
+
         <div class="controls-container">
             <header>
-                <h1>Merge Your Schemes</h1>
-                <img src="./img/logo.png" width=100 alt="Playmaker Logo" class="logo-image"/>
-                
-                <p>Welcome to the part of the site where you can merge your schemes into a PDF</p>
+                <h1>Unisci i tuoi schemi</h1>
+                <img src="./img/logo.png" width=100 alt="Logo Playmaker" class="logo-image"/>
+
+                <p>Benvenuto nella parte del sito per unire i tuoi schemi in un PDF</p>
+
             </header>
 
-            <button id="reset-button" class="material-button"><span class="material-icons">cancel</span>Delete All Schemes</button>
+            <button id="reset-button" class="material-button" ><span class="material-icons">cancel</span>Elimina tutti gli schemi</button>
 
-            <button id="generate-pdf" class="material-button"><span class="material-icons">save</span>Generate PDF</button>
+            <button id="generate-pdf" class="material-button"><span class="material-icons">save</span>Genera PDF</button>
 
-            <button id="gopl" class="material-button"><span class="material-icons">draw</span>Go to Playmaker</button>
+            <button id="gopl" class="material-button"><span class="material-icons">draw</span>Vai al Playmaker</button>
+
+
+
         </div>
     </div>
 
-    <!-- Modal for Image Enlargement -->
+    <!-- Modal per l'ingrandimento delle immagini -->
     <div id="image-modal" class="modal">
         <span id="close-modal" class="close-button">&times;</span>
         <img id="modal-image" class="modal-image" src="">
