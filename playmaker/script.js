@@ -57,9 +57,6 @@ let highlightedPlayer = false;  // Giocatore evidenziato (selezionato)
 let ctrlPressed = false;        // Stato del tasto Control
 const proximityThreshold = 100; 
 
-// Variabili per il supporto touch
-let touchStartTime = 0;
-let touchTimeout = null;
 
 // ====================================================
 // 4. FUNZIONI DI SUPPORTO
@@ -174,27 +171,54 @@ canvas.addEventListener('mousemove', (e) => {
     // Se si sta disegnando la traiettoria (mouse premuto senza Shift e con giocatore evidenziato)
     if (isDrawing && !shiftPressed && highlightedPlayer) {
         const segments = currentRoute.segments;
-        // Crea un nuovo segmento con lo stato 'isDashed' determinato dal tasto Control
-        const newSegment = { x: mouseX, y: mouseY, isDashed: ctrlPressed };
+        const lastSegment = segments[segments.length - 1];
 
-        if (geometricMode) {
-            // In modalità geometrica, calcola l'angolo e la lunghezza rispetto all'ultimo segmento
-            const lastSegment = segments[segments.length - 1];
+        if (ctrlPressed) {
+            // Modalità zig-zag con lunghezza costante
+            const zigZagLength = 20; // Lunghezza fissa di ogni segmento zig-zag
+            const zigZagOffset = 10; // Ampiezza fissa del zig-zag
             const dx = mouseX - lastSegment.x;
             const dy = mouseY - lastSegment.y;
-            const length = Math.sqrt(dx * dx + dy * dy);
-            const angle = Math.atan2(dy, dx);
-            newSegment.x = lastSegment.x + Math.cos(angle) * length;
-            newSegment.y = lastSegment.y + Math.sin(angle) * length;
+            const distance = Math.sqrt(dx * dx + dy * dy);
 
-            // Se c'è un solo segmento, aggiunge il nuovo; altrimenti, sostituisce l'ultimo (per aggiornare dinamicamente)
-            if (segments.length < 2) {
-                segments.push(newSegment);
-            } else {
-                segments[segments.length - 1] = newSegment;
+            if (distance >= zigZagLength) {
+                const angle = Math.atan2(dy, dx);
+                const perpendicularAngle = angle + Math.PI / 2; // Angolo perpendicolare
+
+                // Calcola il punto successivo del zig-zag
+                const zigX = lastSegment.x + Math.cos(angle) * zigZagLength;
+                const zigY = lastSegment.y + Math.sin(angle) * zigZagLength;
+                const offsetX = Math.cos(perpendicularAngle) * zigZagOffset;
+                const offsetY = Math.sin(perpendicularAngle) * zigZagOffset;
+
+                // Alterna tra sopra e sotto l'asse centrale
+                const zigZagPoint = segments.length % 2 === 0
+                    ? { x: zigX + offsetX, y: zigY + offsetY }
+                    : { x: zigX - offsetX, y: zigY - offsetY };
+
+                segments.push(zigZagPoint);
             }
         } else {
-            segments.push(newSegment);
+            // Modalità normale
+            const newSegment = { x: mouseX, y: mouseY, isDashed: ctrlPressed };
+
+            if (geometricMode) {
+                // In modalità geometrica, calcola l'angolo e la lunghezza rispetto all'ultimo segmento
+                const dx = mouseX - lastSegment.x;
+                const dy = mouseY - lastSegment.y;
+                const length = Math.sqrt(dx * dx + dy * dy);
+                const angle = Math.atan2(dy, dx);
+                newSegment.x = lastSegment.x + Math.cos(angle) * length;
+                newSegment.y = lastSegment.y + Math.sin(angle) * length;
+
+                if (segments.length < 2) {
+                    segments.push(newSegment);
+                } else {
+                    segments[segments.length - 1] = newSegment;
+                }
+            } else {
+                segments.push(newSegment);
+            }
         }
         draw();
     }
@@ -206,84 +230,6 @@ canvas.addEventListener('mouseup', () => {
     if (isDrawing && !shiftPressed) {
         isDrawing = false;
     }
-});
-
-// Gestione del doppio tap per selezionare un giocatore
-canvas.addEventListener('touchstart', (e) => {
-    const touch = e.touches[0];
-    mouseX = touch.clientX - canvas.offsetLeft;
-    mouseY = touch.clientY - canvas.offsetTop;
-
-    const tappedPlayer = players.find(player => isMouseOverPlayer(player, mouseX, mouseY));
-
-    if (tappedPlayer) {
-        const currentTime = new Date().getTime();
-        if (currentTime - touchStartTime < 300) {
-            // Doppio tap rilevato
-            highlightPlayer(tappedPlayer);
-            clearTimeout(touchTimeout); // Cancella il timeout del singolo tap
-        } else {
-            touchStartTime = currentTime;
-        }
-    }
-});
-
-// Gestione della pressione prolungata per spostare un giocatore
-canvas.addEventListener('touchstart', (e) => {
-    const touch = e.touches[0];
-    mouseX = touch.clientX - canvas.offsetLeft;
-    mouseY = touch.clientY - canvas.offsetTop;
-
-    draggedPlayer = players.find(player => isMouseOverPlayer(player, mouseX, mouseY));
-
-    if (draggedPlayer) {
-        touchTimeout = setTimeout(() => {
-            highlightPlayer(draggedPlayer); // Evidenzia il giocatore
-        }, 500); // Pressione prolungata di 500ms
-    }
-});
-
-canvas.addEventListener('touchmove', (e) => {
-    if (draggedPlayer) {
-        const touch = e.touches[0];
-        const newMouseX = touch.clientX - canvas.offsetLeft;
-        const newMouseY = touch.clientY - canvas.offsetTop;
-
-        const dx = newMouseX - mouseX;
-        const dy = newMouseY - mouseY;
-
-        const newX = draggedPlayer.x + dx;
-        const newY = draggedPlayer.y + dy;
-
-        if (newX >= moveArea.minX && newX <= moveArea.maxX &&
-            newY >= moveArea.minY && newY <= moveArea.maxY) {
-            draggedPlayer.x = newX;
-            draggedPlayer.y = newY;
-
-            routes.forEach(route => {
-                if (route.playerId === draggedPlayer.id) {
-                    route.segments.forEach(segment => {
-                        segment.x += dx;
-                        segment.y += dy;
-                    });
-
-                    if (route.footballIcon) {
-                        route.footballIcon.x += dx;
-                        route.footballIcon.y += dy;
-                    }
-                }
-            });
-            draw();
-        }
-
-        mouseX = newMouseX;
-        mouseY = newMouseY;
-    }
-});
-
-canvas.addEventListener('touchend', () => {
-    clearTimeout(touchTimeout);
-    draggedPlayer = null;
 });
 
 // ====================================================
