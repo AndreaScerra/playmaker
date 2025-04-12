@@ -12,7 +12,7 @@ document.getElementById('generate-pdf').addEventListener('click', async () => {
 
     const files = document.getElementById('file-input').files;
     if (files.length === 0) {
-        alert('Choose one PNG');
+        alert('Per favore, seleziona almeno un file PNG.');
         return;
     }
 
@@ -29,14 +29,12 @@ document.getElementById('generate-pdf').addEventListener('click', async () => {
     const spaceBetweenX = 15;
     const spaceBetweenY = 20;
     
-    
     // Posizione e dimensione del logo in alto a destra
-    const logoUrl = 'https://raw.githubusercontent.com/AndreaScerra/playmaker/refs/heads/main/png-to-pdf/img/logopdf.png?token=GHSAT0AAAAAAC2L3TLXCSD3X52C5MDC237MZZTT42A'; 
-    const logoWidth = 20;
-    const logoHeight = 20;
+    const logoUrl = 'https://upload.wikimedia.org/wikipedia/it/3/33/Logo_degli_Achei_Crotone.png'; 
+    const logoWidth = 13;
+    const logoHeight = 15.34;
     const logoX = pageWidth - logoWidth - 9.7;
     const logoY = 9;
-
 
     // Calcola le posizioni Y per le righe in base ai margini
     const rowPositions = [
@@ -111,12 +109,14 @@ document.getElementById('generate-pdf').addEventListener('click', async () => {
         dragAndDropArea.addEventListener('drop', (e) => {
             e.preventDefault();
             dragAndDropArea.style.backgroundColor = '#2a2a2a';
-            handleFiles(e.dataTransfer);
+            handleFiles(e);
         });
+        
 
         function handleFiles(event) {
-            const files = event.files ? event.files : event.target.files;
+            const files = event.files ? event.files : event.target.files || event.dataTransfer.files;
             previewContainer.innerHTML = '';
+        
             Array.from(files).forEach(file => {
                 if (file.type.startsWith('image/')) {
                     const img = document.createElement('img');
@@ -126,6 +126,11 @@ document.getElementById('generate-pdf').addEventListener('click', async () => {
                     previewContainer.appendChild(img);
                 }
             });
+        
+            // Aggiorna `file-input`
+            const dataTransfer = new DataTransfer();
+            Array.from(files).forEach(file => dataTransfer.items.add(file));
+            fileInput.files = dataTransfer.files;
         }
 
         function openModal(imageSrc) {
