@@ -298,3 +298,9 @@ header h1 {
 .file-input-label:hover {
     background-color: #00a824;
 }
+
+.material-button .material-icons {
+    margin-right: 8px; /* Spazio tra icona e testo */
+    vertical-align: middle;
+    font-size: 20px;
+}
