@@ -3,48 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>png ->pdf</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-     <link rel="stylesheet" href="./ptp.css">
+    <title>Generatore PDF da PNG</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="ptp.css">
+
+    <!-- Librerie JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 </head>
 <body>
     <div class="container">
-        <div class="drag-and-drop-area" id="drag-and-drop-area">
+        <div class="drag-and-drop-area" id="drop-area">
+            <header>
+                <h1>Trascina i file PNG qui</h1>
+                <p>Oppure usa il pulsante qui sotto</p>
+            </header>
+
             <label for="file-input" class="file-input-label">
-                Scegli File
-                <input type="file" id="file-input" multiple accept=".png" onchange="handleFileSelection()">
+                Scegli file PNG
+                <input type="file" id="file-input" multiple accept=".png">
             </label>
+
             <div id="preview-container" class="preview-container"></div>
         </div>
-        
 
         <div class="controls-container">
             <header>
-                <h1>Unisci i tuoi schemi</h1>
-                <img src="./img/logo.png" width=100 alt="Logo Playmaker" class="logo-image"/>
-
-                <p></p>
-
+                <h2>Unisci i tuoi schemi</h2>
+                <img src="./img/logo.png" width="100" alt="Logo Playmaker" class="logo-image">
             </header>
 
-            <button id="reset-button" class="material-button" ><span class="material-icons">cancel</span>Elimina tutti gli schemi</button>
+            
 
-            <button id="generate-pdf" class="material-button"><span class="material-icons">save</span>Genera PDF</button>
+            <button id="generate-pdf" class="material-button">
+                <span class="material-icons">save</span> Genera PDF
+            </button>
 
-            <button id="gopl" class="material-button"><span class="material-icons">draw</span>Vai al Playmaker</button>
+            <button id="reset-button" class="material-button">
+                <span class="material-icons">cancel</span> Elimina tutti gli schemi
+            </button>
 
-
-
+            <button id="gopl" class="material-button">
+                <span class="material-icons">draw</span> Vai al Playmaker
+            </button>
         </div>
     </div>
 
-    <!-- Modal per l'ingrandimento delle immagini -->
-    <div id="image-modal" class="modal">
-        <span id="close-modal" class="close-button">&times;</span>
-        <img id="modal-image" class="modal-image" src="">
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    
+    <!-- Script -->
     <script src="ptp.js"></script>
 </body>
 </html>
