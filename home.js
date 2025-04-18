@@ -3,7 +3,7 @@ document.getElementById('go-playmaker').addEventListener('click', () => {
 });
 
 document.getElementById('go-pdf').addEventListener('click', () => {
-    window.location.href = '/png-to-pdf/ptp.html';
+    window.location.href = './png-to-pdf/ptp.html';
 });
 
 
