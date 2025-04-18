@@ -5,15 +5,14 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #333;
+    background-color: #333; /* Grigio scuro */
     color: #fff;
 }
 
-/* Container for the whole interface */
 .container {
     display: flex;
     flex-direction: row;
-    background-color: #1a1a1a;
+    background-color: #444; /* Grigio medio */
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -21,6 +20,7 @@ body {
 
 .field-container {
     padding: 20px;
+    
 }
 
 .controls-container {
@@ -31,107 +31,6 @@ body {
     background-color: #2a2a2a;
 }
 
-header {
-    margin-bottom: 20px;
-}
-
-/* Main header styles */
-header h1 {
-    margin: 0;
-    font-size: 24px;
-}
-
-header p {
-    margin: 5px 0 0;
-    font-size: 16px;
-}
-
-/* Controls styling */
-.controls {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-}
-
-.left-column, .right-column {
-    flex: 4;
-    display: flex;
-    flex-direction: column;
-}
-
-.left-column button, .right-column button {
-    margin-bottom: 10px;
-    width: 200px; /* Fixed button width */
-}
-
-.left-column button:last-child, .right-column button:last-child {
-    margin-bottom: 0;
-}
-
-/* Button styles */
-.material-button {
-    background-color: #444;
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    padding: 12px;
-    font-size: 16px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s ease;
-}
-
-#go-pdf {
-    background-color: #8b2acc;
-    color: #fff;
-    border: 30px;
-    border-radius: 10px;
-    padding: 12px;
-}
-
-#go-playmaker {
-    background-color: #137e10;
-    color: #fff;
-    border: 30px;
-    border-radius: 10px;
-    padding: 12px;
-}
-
-/* Hover effects */
-.material-button:hover {
-    background-color: #555;
-}
-
-#clear-canvas:hover {
-    background-color: #772320;
-}
-
-#delete-route:hover {
-    background-color: #d9534f;
-}
-
-#save-play:hover {
-    background-color: #00aaff;
-}
-
-#toggle-end-marker:hover {
-    background-color: #00a824;
-}
-
-.material-button .material-icons {
-    margin-right: 8px;
-    font-size: 18px;
-}
-
-#playbook-canvas {
-    background-color: #1a1a1a;
-    border: 2px solid #fff;
-    border-radius: 10px;
-}
-
-/* Header styling */
 header {
     margin-bottom: 20px;
     text-align: center;
@@ -153,4 +52,81 @@ header p .material-icons {
     font-size: 20px;
     margin-right: 8px;
     color: #ffffff;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between; 
+    gap: 15px; 
+}
+
+.left-column, .right-column {
+    flex: 4; 
+    display: flex;
+    flex-direction: column; 
+}
+
+.left-column button, .right-column button {
+    margin-bottom: 10px; 
+    width: 200px; /* Imposta una larghezza fissa */
+}
+
+.left-column button:last-child, .right-column button:last-child {
+    margin-bottom: 0; 
+}
+
+.material-button {
+    background-color: #444; /* Grigio medio */
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.material-button:hover {
+    background-color: #555; /* Grigio più chiaro */
+}
+
+#go-pdf, #go-playmaker {
+    background-color: #444; /* Grigio medio */
+    color: #fff;
+    border-radius: 10px;
+    padding: 12px;
+}
+
+#go-pdf:hover, #go-playmaker:hover {
+    background-color: #555; /* Grigio più chiaro */
+}
+
+#clear-canvas:hover {
+    background-color: #772320; 
+}
+
+#delete-route:hover {
+    background-color: #d9534f;
+}
+
+#save-play:hover {
+    background-color: #00aaff; 
+}
+
+#toggle-end-marker:hover {
+    background-color: #00a824; 
+}
+
+.material-button .material-icons {
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+#playbook-canvas {
+    background-color: #1a1a1a;
+    border: 2px solid #fff;
+    border-radius: 10px;
 }
