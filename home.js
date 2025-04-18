@@ -1,5 +1,5 @@
 document.getElementById('go-playmaker').addEventListener('click', () => {
-    window.location.href = './playmaker/index.html';
+    window.location.href = './tabopc.html';
 });
 
 document.getElementById('go-pdf').addEventListener('click', () => {
