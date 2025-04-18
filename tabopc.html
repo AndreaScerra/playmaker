@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="shortcut icon" href="./img/logo.jpg" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="home.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #333; /* Grigio scuro */
+            color: #fff;
+        }
+        .button-container {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            background-color: #222; /* Sfondo leggermente più scuro */
+        }
+        .large-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 150px;
+            height: 150px;
+            background-color: #444; /* Grigio medio */
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+        .large-button .material-icons {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        .large-button:hover {
+            background-color: #555; /* Grigio più chiaro */
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <button class="large-button" id="pc-button">
+            <span class="material-icons">computer</span>
+            PC
+        </button>
+        <button class="large-button" id="tablet-button">
+            <span class="material-icons">tablet</span>
+            Tablet
+        </button>
+    </div>
+    <script src="tabopc.js">
+
+        
+    </script>
+</body>
+</html>
