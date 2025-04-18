@@ -1,0 +1,310 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #333;
+    color: #fff;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.field-container {
+    padding: 20px;
+    
+}
+
+.controls-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #2a2a2a;
+}
+
+header {
+    margin-bottom: 20px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+header p {
+    margin: 5px 0 0;
+    font-size: 16px;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between; 
+    gap: 15px; 
+}
+
+
+.left-column, .middle-column, .right-column {
+    flex: 4; 
+    display: flex;
+    flex-direction: column; 
+}
+
+
+.left-column button,  .middle-column button, .right-column button {
+    margin-bottom: 10px; 
+    width: 200px; /* Imposta una larghezza fissa */
+
+}
+
+
+.left-column button:last-child, .middle-column button:last-child .right-column button:last-child {
+    margin-bottom: 0; 
+}
+
+.material-button {
+    background-color: #444;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+
+
+
+#goptp {
+    background-color: #8b2acc;
+    color: #fff;
+    border: 30px;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.json-upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 15px; /* Aggiunge spazio sotto il pulsante */
+    gap: 8px; /* Spazio tra il pulsante e il nome del file */
+}
+
+#upload-json-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+}
+
+#file-name {
+    font-size: 14px;
+    color: #bbb;
+    text-align: center;
+}
+
+/* Stile per il campo commenti nella modale */
+.modal-content textarea {
+    font-family: 'Arial', sans-serif;
+    width: 80%;
+    height: 60px;
+    padding: 12px;
+    margin: 15px 0;
+    border: 1px solid #555;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #444;
+    color: #fff;
+    text-align: center;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+/*hover */
+/* Effetti hover per tutti i pulsanti */
+
+
+/* Pulsanti della terza colonna */
+#upload-json-btn:hover {
+    background-color: #0049a8; /* Blu scuro */
+}
+
+#goptp:hover {
+    background-color: #8b2acc; /* Viola */
+}
+
+
+.material-button .material-icons {
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+#playbook-canvas {
+    background-color: #1a1a1a;
+    border: 2px solid #fff;
+    border-radius: 10px;
+}
+
+/* Modale di conferma */
+
+/* Modale di conferma */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #2a2a2a;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    width: 80%;
+    max-width: 400px;
+    color: #fff;
+}
+
+/* Bottone per chiudere la modale */
+.close-button {
+    color: #aaa;
+    font-size: 24px;
+    float: right;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-button:hover {
+    color: #fff;
+}
+
+/* Pulsanti all'interno della modale */
+.modal-button {
+    background-color: #444; /* Stesso colore di .material-button */
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    margin: 10px;
+}
+
+
+
+.modal-button:hover {
+    background-color: #555; /* Stesso effetto hover di .material-button */
+}
+
+.modal-button .material-icons {
+    margin-right: 8px;
+    font-size: 20px;
+}
+
+/* Pulsanti di salvataggio specifici */
+#save-black-white, #save-color {
+    background-color: #555555;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 10px;
+}
+
+#save-black-white:hover, #save-color:hover {
+    background-color: #8a8a8a;
+}
+
+
+/* Stile aggiornato per il campo di input nella modale */
+.modal-content input[type="text"] {
+    width: 80%;
+    padding: 12px;
+    margin: 15px 0;
+    border: 1px solid #555;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #444;
+    color: #fff;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+
+
+
+
+
+
+/* Fine modale */
+
+
+
+
+
+
+header {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+header p {
+    margin: 5px 0;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+}
+
+header p .material-icons {
+    font-size: 20px;
+    margin-right: 8px;
+    color: #ffffff;
+}
+
+
+.material-button.active {
+    background-color: #007bff; /* Colore blu per indicare lo stato attivo */
+    color: #fff;
+    border: 2px solid #0056b3; /* Bordo più scuro per evidenziare */
+}
