@@ -153,5 +153,5 @@ Sortable.create(previewContainer, {
 });
 
 document.getElementById('gopl').addEventListener('click', () => {
-    window.location.href = '../playmaker/index.html';
+    window.location.href = '../tabopc.html';
 });
